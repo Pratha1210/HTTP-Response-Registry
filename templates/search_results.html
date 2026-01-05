@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search API Responses</title>
+    <style>
+        body {
+            background-color: #34587e;
+            background-attachment: fixed;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            background-repeat: no-repeat;
+
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: sticky;
+            top: 0;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            background: #007BFF;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .navbar a:hover {
+            background: #0056b3;
+        }
+        .search{
+          width: 300px;
+          background: #89b4e1dd;
+          padding: 20px;
+          margin: 100px auto;
+          text-align: center;
+          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+          border-radius: 5px;
+        }
+        .search input {
+          width: 100% ;
+          padding: 10px;
+          margin: 10px 0;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+        }
+        .search button {
+          width: 100%;
+          padding: 10px;
+          background: #007bff;
+          border: none;
+          color: white;
+          font-size: 16px;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+        .search button:hover {
+          background: #0056b3;
+        }
+        .search p {
+          margin-top: 10px;
+        }
+        .search p a {
+          color: #007bff;
+          text-decoration: none;
+        }
+        .search p a:hover {
+          text-decoration: underline;
+        }
+
+      
+    </style>
+</head>
+<body>
+  <div class="navbar">
+    <a href="{{ url_for('dashboard') }}">Dashboard</a>
+    <a href="{{ url_for('add_api_response') }}">Add API Response</a>
+    <a href="{{ url_for('search_api') }}">Search API Responses</a>
+    <a href="{{ url_for('saved_searches') }}">Saved Searches</a>
+    <a href="{{ url_for('logout') }}">Logout</a>
+</div>
+  <div class="search">
+    <div>
+      <h1>Search API Responses</h1>
+      <form>
+        <input type="text" name="search_query" placeholder="Enter code (e.g. 2xx, 203, 21x)" required value="{{ search_query }}">
+    </form>
+  
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    </div>
+   
+    <div>
+      {% for api in results %}
+      <div>
+          <h3>{{ api.code }}</h3>
+          <p>{{ api.message }}</p>
+          <img src="{{ api.image_url }}" alt="API Image" width="200">
+          <br>
+      </div>
+      {% endfor %}
+  </div>
+  </div>   
+</body>
+</html>

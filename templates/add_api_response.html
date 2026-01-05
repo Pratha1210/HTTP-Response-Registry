@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add API Response</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+     .body {
+            background-color: #34587e;
+            background-attachment: fixed;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            background-repeat: no-repeat;
+
+        }
+        .navbar {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            margin: 0px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            background: #007BFF;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .navbar a:hover {
+            background: #0056b3;
+        }
+
+        .container {
+            background:#89b4e1dd;
+            padding: 30px;
+            margin: 100px auto;
+            display: inline-block;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input, textarea, button {
+            display: block;
+            margin: 10px auto;
+            width: 300px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        button {
+            background: #28a745;
+            color: white;
+            border: none;
+        }
+        button:hover {
+            background: #218838;
+        }
+        a {
+            color: #ffc107;
+        }
+    </style>
+</head>
+<body class="body">
+    <div class="navbar">
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('add_api_response') }}">Add API Response</a>
+        <a href="{{ url_for('search_api') }}">Search API Responses</a>
+        <a href="{{ url_for('saved_searches') }}">Saved Searches</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+    <div class="container">
+        <h2>Add New API Response</h2>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endwith %}
+
+        <form method="POST">
+            <input type="number" name="code" placeholder="Response Code" required>
+            <input type="text" name="message" placeholder="Response Message" required></input>
+            <input type="url" name="image_url" placeholder="Image URL" required>
+            <button type="submit">Add Response</button>
+        </form>
+    </div>
+</body>
+</html>

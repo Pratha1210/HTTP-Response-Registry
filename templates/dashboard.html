@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            background-color: #34587e;
+            background-attachment: fixed;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            background-repeat: no-repeat;
+
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: sticky;
+            top: 0;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            background: #007BFF;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .navbar a:hover {
+            background: #0056b3;
+        }
+        .container {
+            text-align: center bottom;
+            color: white;
+            position: fixed;
+            bottom: 10px;
+            left: 400px;
+        }
+        .flashes {
+            margin: 20px auto;
+            width: 60%;
+            text-align: center;
+        }
+        .flash {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .flash.success { background: #28a745; }
+        .flash.error { background: #dc3545; }
+        .flash.warning { background: #ffc107; color: black; }
+        .flash.info { background: #17a2b8; }
+        .main-content {
+            margin-top: 40px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('add_api_response') }}">Add API Response</a>
+        <a href="{{ url_for('search_api') }}">Search API Responses</a>
+        <a href="{{ url_for('saved_searches') }}">Saved Searches</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+    <!-- Flash Messages -->
+    <div class="flashes">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Welcome to Your Dashboard</h1>
+        <b><p>Use the buttons above to navigate through the application.</p></b>
+    </div>
+
+</body>
+</html>
